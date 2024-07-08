@@ -1,0 +1,91 @@
+﻿<div class="container">
+<div class="row">
+    <!-- Bereich für aktuelle Bücher -->
+    <div class="col-md-6">
+        <h2>Aktuelle Bücher</h2>
+        <p>Diese Bücher befinden sich in der Datenbank: aktuelle_buecher</p>
+
+        @if (Model.AktuelleBuecher != null && Model.AktuelleBuecher.Count > 0)
+        {
+            <!-- Tabelle zur Anzeige der aktuellen Bücher -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Titel</th>
+                        <th>Autor</th>
+                        <th>Verschieben zu Archiviert</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var buch in Model.AktuelleBuecher)
+                    {
+                        <tr>
+                            <!-- Anzeige der Buchinformationen -->
+                            <td>@buch.Id</td>
+                            <td>@buch.Titel</td>
+                            <td>@buch.Autor</td>
+                            <!-- Formular zum Verschieben des Buchs zu den archivierten Büchern -->
+                            <td>
+                                <form asp-controller="Buch" asp-action="VerschiebeZuArchiviertenBuechern" method="post">
+                                    <input type="hidden" name="id" value="@buch.Id" />
+                                    <button type="submit" class="btn btn-primary btn-sm">Verschieben zu Archivierten</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <!-- Anzeige, falls keine aktuellen Bücher gefunden wurden -->
+            <p>Keine aktuellen Bücher gefunden.</p>
+        }
+    </div>
+
+    <!-- Bereich für archivierte Bücher -->
+    <div class="col-md-6">
+        <h2>Archivierte Bücher</h2>
+        <p>Diese Bücher befinden sich in der Datenbank: archivierte_buecher</p>
+
+        @if (Model.ArchivierteBuecher != null && Model.ArchivierteBuecher.Count > 0)
+        {
+            <!-- Tabelle zur Anzeige der archivierten Bücher -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Titel</th>
+                        <th>Autor</th>
+                        <th>Verschieben zu Aktuell</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var buch in Model.ArchivierteBuecher)
+                    {
+                        <tr>
+                            <!-- Anzeige der Buchinformationen -->
+                            <td>@buch.Id</td>
+                            <td>@buch.Titel</td>
+                            <td>@buch.Autor</td>
+                            <!-- Formular zum Verschieben des Buchs zu den aktuellen Büchern -->
+                            <td>
+                                <form asp-controller="Buch" asp-action="VerschiebeZuAktuellenBuechern" method="post">
+                                    <input type="hidden" name="id" value="@buch.Id" />
+                                    <button type="submit" class="btn btn-success btn-sm">Verschieben zu Aktuellen</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <!-- Anzeige, falls keine archivierten Bücher gefunden wurden -->
+            <p>Keine archivierten Bücher gefunden.</p>
+        }
+    </div>
+</div>
+</div>
