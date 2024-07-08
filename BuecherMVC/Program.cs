@@ -1,36 +1,43 @@
-using BuecherDatenbank;
-using Microsoft.EntityFrameworkCore;
+// Erforderliche Namespaces importieren
+using BuecherDatenbank;  // Zugriff auf die BuecherDatenbank-Komponenten
+using Microsoft.EntityFrameworkCore;  // Zugriff auf Entity Framework Core
 
+// Erstellen des Webanwendungs-Builders
 var builder = WebApplication.CreateBuilder(args);
 
-// Konfiguration laden
+// Konfiguration laden aus appsettings.json
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-// DI-Konfiguration hinzufügen
-builder.Services.AddTransient<BuecherRepository>();
+// Dependency Injection (DI) Konfiguration hinzufügen
+builder.Services.AddTransient<BuecherRepository>();  // Registrierung des BuecherRepository als Transient Service
 builder.Services.AddDbContext<BuecherDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("MariaDB"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MariaDB"))));
+// Hinzufügen der BuecherDbContext als DbContext mit MySQL-Datenbankverbindung, automatische Ermittlung der Serverversion
 
-builder.Services.AddAuthorization();
-builder.Services.AddControllersWithViews();
+// Weitere Services hinzufügen
+builder.Services.AddAuthorization();  // Autorisierungsdienst hinzufügen
+builder.Services.AddControllersWithViews();  // MVC-Controller und Views hinzufügen
 
+// Build der Webanwendung
 var app = builder.Build();
 
-// Middleware-Konfiguration
+// Middleware-Konfiguration für Produktionsumgebung
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");  // Fehlerbehandlungsmiddleware für Fehlerseite konfigurieren
+    app.UseHsts();  // HTTP Strict Transport Security (HSTS) Middleware hinzufügen
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseHttpsRedirection();  // HTTPS-Umleitung aktivieren
+app.UseStaticFiles();  // Statische Dateien (z.B. CSS, JavaScript) bereitstellen
 
-app.UseRouting();
-app.UseAuthorization();
+app.UseRouting();  // Routing Middleware hinzufügen
+app.UseAuthorization();  // Autorisierungsmiddleware aktivieren
 
+// Controller-Routing konfigurieren
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");  // Standard-Route für Controller festlegen
 
-app.Run();
+app.Run();  // Anwendung ausführen
+
