@@ -1,25 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;  
+﻿using Microsoft.EntityFrameworkCore;  // Einbindung des Entity Framework Core
 namespace BuecherDatenbank
 {
-    
+    // Definition des BuecherDbContext, der die Datenbankverbindung und -konfiguration verwaltet
     public class BuecherDbContext : DbContext
     {
-        
+        // Definition der DbSet für aktuelle Bücher
         public DbSet<AktuellesBuch> AktuelleBuecher { get; set; }
 
-        
+        // Definition der DbSet für archivierte Bücher
         public DbSet<ArchiviertesBuch> ArchivierteBuecher { get; set; }
 
-       
+        // Konstruktor, der die Optionen an die Basisklasse weitergibt
         public BuecherDbContext(DbContextOptions<BuecherDbContext> options)
             : base(options)
         {
         }
 
-       
+        // Konfiguration des Modellaufbaus
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            // Konfiguration für die Entität AktuellesBuch
             modelBuilder.Entity<AktuellesBuch>(entity =>
             {
                 // Mapping zur Tabelle "aktuelle_buecher"
@@ -59,7 +59,7 @@ namespace BuecherDatenbank
         }
     }
 
-    
+    // Klasse für aktuelle Bücher
     public class AktuellesBuch
     {
         public int Id { get; set; }        // Id des Buches
@@ -67,11 +67,11 @@ namespace BuecherDatenbank
         public string? Autor { get; set; } // Autor des Buches
     }
 
-    
+    // Klasse für archivierte Bücher
     public class ArchiviertesBuch
     {
-        public int Id { get; set; }        
-        public string? Titel { get; set; } 
-        public string? Autor { get; set; } 
+        public int Id { get; set; }        // Id des Buches
+        public string? Titel { get; set; } // Titel des Buches
+        public string? Autor { get; set; } // Autor des Buches
     }
 }
