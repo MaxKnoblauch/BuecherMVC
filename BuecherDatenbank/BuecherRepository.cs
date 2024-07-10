@@ -7,9 +7,9 @@ namespace BuecherDatenbank
 {
     public class BuecherRepository
     {
-        private readonly BuecherDbContext _context;
+        private readonly BuecherDBContext _context;
 
-        public BuecherRepository(BuecherDbContext context)
+        public BuecherRepository(BuecherDBContext context)
         {
             _context = context;
         }

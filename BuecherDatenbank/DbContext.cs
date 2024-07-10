@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;  // Einbindung des Entity Framework Core
 namespace BuecherDatenbank
 {
-    // Definition des BuecherDbContext, der die Datenbankverbindung und -konfiguration verwaltet
-    public class BuecherDbContext : DbContext
+    // Definition des BuecherDBContext, der die Datenbankverbindung und -konfiguration verwaltet
+    public class BuecherDBContext : DbContext
     {
         // Definition der DbSet für aktuelle Bücher
         public DbSet<AktuellesBuch> AktuelleBuecher { get; set; }
@@ -11,7 +11,7 @@ namespace BuecherDatenbank
         public DbSet<ArchiviertesBuch> ArchivierteBuecher { get; set; }
 
         // Konstruktor, der die Optionen an die Basisklasse weitergibt
-        public BuecherDbContext(DbContextOptions<BuecherDbContext> options)
+        public BuecherDBContext(DbContextOptions<BuecherDBContext> options)
             : base(options)
         {
         }

@@ -1,10 +1,12 @@
-﻿@model BuecherMVC.Models.BuecherListeModel
+﻿@model BuecherMVC.Models.BuecherListeModel // Bindet das ViewModel BuecherListeModel an die View
 
 <div class="container">
     <div class="row">
+        <!-- Linke Spalte für aktuelle Bücher -->
         <div class="col-md-6">
             <h2>Aktuelle Buecher</h2>
 
+            @* Überprüft, ob die Liste der aktuellen Bücher nicht null und nicht leer ist *@
             @if (Model.AktuelleBuecher != null && Model.AktuelleBuecher.Count > 0)
             {
                 <div class="table-responsive">
@@ -18,17 +20,19 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @* Schleife durch jedes Buch in der Liste der aktuellen Bücher *@
                             @foreach (var buch in Model.AktuelleBuecher)
                             {
                                 <tr>
-                                    <td>@buch.Id</td>
-                                    <td>@buch.Titel</td>
-                                    <td>@buch.Autor</td>
+                                    <td>@buch.Id</td> <!-- Buch Id -->
+                                    <td>@buch.Titel</td> <!-- Buch Titel -->
+                                    <td>@buch.Autor</td> <!-- Buch Autor -->
                                     <td>
+                                        @* Formular zum Verschieben eines Buches zu den archivierten Büchern *@
                                         <form asp-controller="Buecher" asp-action="VerschiebeZuArchiviertenBuechern" method="post">
                                             <input type="hidden" name="id" value="@buch.Id" />
                                             <button type="submit" class="btn btn-primary btn-sm archivieren-btn" style="background-color: blue; color: white;">
-                                                zu archivierten Büchern verschieben <i class="fas fa-arrow-right"></i>
+                                                zu archivierten Buechern verschieben <i class="fas fa-arrow-right"></i> <!-- Button zum Verschieben -->
                                             </button>
                                         </form>
                                     </td>
@@ -40,13 +44,15 @@
             }
             else
             {
-                <p>Keine aktuellen Bücher gefunden.</p>
+                <p>Keine aktuellen Bücher gefunden.</p> <!-- Nachricht, wenn keine aktuellen Bücher vorhanden sind -->
             }
         </div>
 
+        <!-- Rechte Spalte für archivierte Bücher -->
         <div class="col-md-6">
             <h2>Archivierte Buecher</h2>
 
+            @* Überprüft, ob die Liste der archivierten Bücher nicht null und nicht leer ist *@
             @if (Model.ArchivierteBuecher != null && Model.ArchivierteBuecher.Count > 0)
             {
                 <div class="table-responsive">
@@ -60,17 +66,19 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @* Schleife durch jedes Buch in der Liste der archivierten Bücher *@
                             @foreach (var buch in Model.ArchivierteBuecher)
                             {
                                 <tr>
-                                    <td>@buch.Id</td>
-                                    <td>@buch.Titel</td>
-                                    <td>@buch.Autor</td>
+                                    <td>@buch.Id</td> <!-- Buch Id -->
+                                    <td>@buch.Titel</td> <!-- Buch Titel -->
+                                    <td>@buch.Autor</td> <!-- Buch Autor -->
                                     <td>
+                                        @* Formular zum Verschieben eines Buches zu den aktuellen Büchern *@
                                         <form asp-controller="Buecher" asp-action="VerschiebeZuAktuellenBuechern" method="post">
                                             <input type="hidden" name="id" value="@buch.Id" />
                                             <button type="submit" class="btn btn-success btn-sm dearchivieren-btn" style="background-color: green; color: white;">
-                                                zu aktuellen Büchern verschieben <i class="fas fa-arrow-left"></i>
+                                                zu aktuellen Buechern verschieben <i class="fas fa-arrow-left"></i> <!-- Button zum Verschieben -->
                                             </button>
                                         </form>
                                     </td>
@@ -82,7 +90,7 @@
             }
             else
             {
-                <p>Keine archivierten Bücher gefunden.</p>
+                <p>Keine archivierten Bücher gefunden.</p> <!-- Nachricht, wenn keine archivierten Bücher vorhanden sind -->
             }
         </div>
     </div>

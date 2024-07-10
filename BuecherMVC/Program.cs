@@ -10,9 +10,9 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 
 // Dependency Injection (DI) Konfiguration hinzufügen
 builder.Services.AddTransient<BuecherRepository>();  // Registrierung des BuecherRepository als Transient Service
-builder.Services.AddDbContext<BuecherDbContext>(options =>
+builder.Services.AddDbContext<BuecherDBContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("MariaDB"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MariaDB"))));
-// Hinzufügen der BuecherDbContext als DbContext mit MySQL-Datenbankverbindung, automatische Ermittlung der Serverversion
+// Hinzufügen der BuecherDBContext als DbContext mit MySQL-Datenbankverbindung, automatische Ermittlung der Serverversion
 
 // Weitere Services hinzufügen
 builder.Services.AddAuthorization();  // Autorisierungsdienst hinzufügen
