@@ -59,16 +59,17 @@ namespace BuecherDatenbank
         }
     }
 
-    // Klasse für aktuelle Bücher
-    public class AktuellesBuch
+
+    // Klasse für archivierte Bücher
+    public class ArchiviertesBuch
     {
         public int Id { get; set; }        // Id des Buches
         public string? Titel { get; set; } // Titel des Buches
         public string? Autor { get; set; } // Autor des Buches
     }
 
-    // Klasse für archivierte Bücher
-    public class ArchiviertesBuch
+    // Klasse für aktuelle Bücher
+    public class AktuellesBuch
     {
         public int Id { get; set; }        // Id des Buches
         public string? Titel { get; set; } // Titel des Buches
